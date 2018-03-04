@@ -76,6 +76,7 @@ syntax on
 set nocompatible
 filetype plugin indent on
 
+
 set encoding=utf8
 set autoindent
 set backspace=indent,eol,start
@@ -105,18 +106,16 @@ set expandtab
 
 " --- Mappings ---
 let mapleader = " "
-
 inoremap jj <ESC>
-
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
 nnoremap <leader>n :NERDTreeFind<CR>
+nnoremap <leader>b :Buffers<cr>
 nnoremap <Tab><Tab> :NERDTreeToggle<CR>
-
 nnoremap <leader>d /def<CR>
-
 nnoremap <leader>cl :lclose<CR>
 nnoremap <leader>sn :lnext<cr>
 nnoremap <leader>sp :lprev<cr>
-
 nnoremap j gj
 nnoremap k gk
 
@@ -129,6 +128,7 @@ nmap <leader>e <C-y>,i
 
 " --- FZF ---
 nnoremap <leader>p :FZF<cr>
+nnoremap <leader>F :Files<cr>
 
 " Toggle NERDTree
 map <C-n> :NERDTreeToggle<CR>
@@ -136,7 +136,7 @@ map <C-n> :NERDTreeToggle<CR>
 " --- ALE ---
 
 let g:ale_javascript_eslint_use_global = 1
-let g:ale_javascript_eslint_executable = '/Users/chris/.nvm/versions/node/v7.10.0/bin/eslint'
+let g:ale_javascript_eslint_executable = '/Users/Jaime/.nvm/versions/node/v8.6.0/bin/eslint'
 let g:ale_fixers = {'javascript': ['eslint']}
 
 " --- Look & Feel ---
