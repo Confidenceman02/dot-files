@@ -1,8 +1,8 @@
 call plug#begin('~/.vim/plugged')
+execute pathogen#infect()
 
 " --- Auto-Completion
 Plug 'jiangmiao/auto-pairs'
-Plug 'ternjs/tern_for_vim'
 Plug 'Valloric/YouCompleteMe'
 
 " --- Editing ---
@@ -28,7 +28,6 @@ Plug 'tpope/vim-rails'
 Plug 'vim-ruby/vim-ruby'
 
 " --- Snippets ---
-" Plug 'https://github.com/SirVer/ultisnips'
 Plug 'mattn/emmet-vim'
 Plug 'vim-scripts/Emmet.vim'
 
@@ -37,7 +36,6 @@ Plug 'vim-scripts/Emmet.vim'
 Plug 'vim-scripts/WebAPI.vim'
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'elzr/vim-json'
-Plug 'digitaltoad/vim-pug'
 Plug 'https://github.com/othree/yajs.vim'
 Plug 'https://github.com/jelera/vim-javascript-syntax'
 Plug 'MaxMEllon/vim-jsx-pretty'
@@ -76,11 +74,12 @@ syntax on
 set nocompatible
 filetype plugin indent on
 
+
 set encoding=utf8
 set autoindent
 set backspace=indent,eol,start
-set cursorline
-set cursorcolumn
+" set cursorline
+" set cursorcolumn
 set hidden
 set hlsearch
 set laststatus=2
@@ -105,18 +104,16 @@ set expandtab
 
 " --- Mappings ---
 let mapleader = " "
-
 inoremap jj <ESC>
-
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
 nnoremap <leader>n :NERDTreeFind<CR>
+nnoremap <leader>b :Buffers<cr>
 nnoremap <Tab><Tab> :NERDTreeToggle<CR>
-
 nnoremap <leader>d /def<CR>
-
 nnoremap <leader>cl :lclose<CR>
 nnoremap <leader>sn :lnext<cr>
 nnoremap <leader>sp :lprev<cr>
-
 nnoremap j gj
 nnoremap k gk
 
@@ -129,21 +126,30 @@ nmap <leader>e <C-y>,i
 
 " --- FZF ---
 nnoremap <leader>p :FZF<cr>
+nnoremap <leader>F :Files<cr>
 
+" rg bindings
+nnoremap <leader>r :Rg<Space>
+nnoremap <silent> <Leader>* :Rg <C-R><C-W><CR>
 " Toggle NERDTree
 map <C-n> :NERDTreeToggle<CR>
 
 " --- ALE ---
 
 let g:ale_javascript_eslint_use_global = 1
-let g:ale_javascript_eslint_executable = '/Users/chris/.nvm/versions/node/v7.10.0/bin/eslint'
+let g:ale_javascript_eslint_executable = '/Users/Jaime/.nvm/versions/node/v8.6.0/bin/eslint'
 let g:ale_fixers = {'javascript': ['eslint']}
 
 " --- Look & Feel ---
-colorscheme antares
+colorscheme alduin
 let g:airline_powerline_fonts = 1 "enable powerline font
 let g:airline_theme='base16'
 
+" ts intellisense
+let g:tsuquyomi_completion_detail = 1
+let g:tsuquyomi_disable_quickfix = 1
+let g:syntastic_typescript_checkers = ['tsuquyomi']
+let g:ycm_log_level='debug'
 " Other options "
 """""""""""""""""
 let g:jsx_ext_required = 0
@@ -174,5 +180,24 @@ let g:sort_motion_flags = "i"
 " enable AutoSave on Vim startup
 let g:auto_save = 1
 
-" --- Inspirational Dotfiles ---
-" https://github.com/kmARC/vim/blob/master/vimrc
+" rg
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always -S '.shellescape(<q-args>), 1, { 'optionss': '--bind ctrl-l:select-all,ctrl-q:deselect-all'  },
+  \   <bang>0)
+
+command! -bang -nargs=* RgWithPreview
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always -S '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
+" Likewise, Files command with preview window
+command! -bang -nargs=? -complete=dir Files
+ \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+" or GitFiles
+command! -bang -nargs=? -complete=dir GitFiles
+ \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview(), <bang>0)
+
