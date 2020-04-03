@@ -3,3 +3,4 @@ set timeoutlen=1000
 
 set relativenumber
 set number
+set clipboard+=unnamed " Yanks go on clipboard instead.
