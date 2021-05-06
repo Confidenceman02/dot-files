@@ -3,6 +3,7 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
   silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
+
 call plug#begin('~/.vim/plugged')
 source $HOME/.vim/plugged/coc.nvim/coc.vim
 " --- Auto-Completion
@@ -17,13 +18,11 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 " --- Look & Feel
-Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'flazz/vim-colorschemes'
+Plug 'ayu-theme/ayu-vim'
 
 " --- Ruby ---
-" Plug 'nelstrom/vim-textobj-rubyblock'
 Plug 'tpope/vim-rails'
 Plug 'vim-ruby/vim-ruby'
 
@@ -45,7 +44,6 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'https://github.com/junegunn/vim-plug'
 Plug '907th/vim-auto-save'
 Plug 'rizzatti/dash.vim'
-Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
@@ -99,20 +97,12 @@ let mapleader = " "
 
 inoremap jj <ESC>
 
-nnoremap <leader>n :NERDTreeFind<CR>
-nnoremap <Tab><Tab> :NERDTreeToggle<CR>
-
 nnoremap <leader>d /def<CR>
-
 nnoremap <leader>cl :lclose<CR>
 nnoremap <leader>sn :lnext<cr>
 nnoremap <leader>sp :lprev<cr>
-
 nnoremap j gj
 nnoremap k gk
-
-" autocmd! BufWritePost,BufEnter * Neomake
-
 " This unsets the 'last search pattern' register by hitting return
 nnoremap <CR> :noh<CR>
 
@@ -123,11 +113,11 @@ nmap <leader>e <C-y>,i
 " --- FZF ---
 nnoremap <leader>p :FZF<cr>
 
-" Toggle NERDTree
-map <C-n> :NERDTreeToggle<CR>
-
 " --- Look & Feel ---
-colorscheme antares
+colorscheme ayu
+set termguicolors     " enable true colors support
+let ayucolor="dark"   " for dark version of theme
+
 let g:airline_powerline_fonts = 1 "enable powerline font
 let g:airline_theme='base16'
 
@@ -170,18 +160,6 @@ let g:fzf_colors =
 
 let g:jsx_ext_required = 0
 " let g:javascript_plugin_flow = 1
-
-" --- NERDCommenter options ---
-" Add spaces after comment delimiters by default
-let g:NERDSpaceDelims = 1
-" Use compact syntax for prettified multi-line comments
-let g:NERDCompactSexyComs = 1
-" Align line-wise comment delimiters flush left instead of following code indentation
-let g:NERDDefaultAlign = 'left'
-" Allow commenting and inverting empty lines (useful when commenting a region)
-let g:NERDCommentEmptyLines = 1
-" Enable trimming of trailing whitespace when uncommenting
-let g:NERDTrimTrailingWhitespace = 1
 
 " Sets the sort-motion plugin to be case-insensitive
 let g:sort_motion_flags = "i"
