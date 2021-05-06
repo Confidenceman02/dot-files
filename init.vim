@@ -74,7 +74,7 @@ set laststatus=2
 set relativenumber
 set number
 set ruler
-set scrolloff=3
+set scrolloff=8
 set showcmd
 set showmode
 set ttyfast
