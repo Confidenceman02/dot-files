@@ -1,7 +1,8 @@
 imap jj <Esc>
 set timeoutlen=1000
 
-#set relativenumber
+" set relativenumber
 set number
+set scrolloff=8
 set clipboard+=unnamed " Yanks go on clipboard instead.
 set surround
