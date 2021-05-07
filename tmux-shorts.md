@@ -13,7 +13,3 @@ To get the pane back.
 
 This tells tmux to split the current pane vertically (`-v`) and to join the source pane (`-s`) with identifier `1:2.0`.
 You don't need to add the `session` or the `pane` parts of the identifier.
-
-## Resize pane
-`Prefix C-up`, `Prefix C-down`, `Prefix C-left`, `Prefix C-right` resizes by 1 row/column
-
