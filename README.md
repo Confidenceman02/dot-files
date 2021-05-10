@@ -50,7 +50,7 @@ NOTE: You can just have one global `elm-tooling.json` file but I prefer to have 
 
 `elm-language-server` needs to install elm things into its own internally managed directory.
 
-from the root of your porject or directory where `elm-tooling.json` lives.
+From the root of your project or directory where `elm-tooling.json` lives.
 
 `npx elm-tooling install`
 
@@ -75,7 +75,7 @@ Install the library
 `sudo apt install alacritty`
 
 Copy the alacritty.yml file to where alacritty is expecting it.
-`cp ~/dot-files/alacritty.yml` ~/.config/alacritty/
+`cp ~/dot-files/alacritty.yml ~/.config/alacritty/`
 
 Open up the alacritty application and a terminal session should start.
 
