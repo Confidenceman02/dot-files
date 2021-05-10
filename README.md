@@ -74,6 +74,8 @@ All should be working so open up an elm file and you should have a vscode style 
 Install the library
 `sudo apt install alacritty`
 
+Check out [Chris@machine](https://www.chrisatmachine.com/Linux/06-alacritty/)'s blog for other isntall instructions.'
+
 Copy the alacritty.yml file to where alacritty is expecting it.
 `cp ~/dot-files/alacritty.yml ~/.config/alacritty/`
 
