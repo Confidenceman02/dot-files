@@ -1,4 +1,4 @@
-# File set up
+# All the things
 
 This guide assumes you are using [nvim](https://www.google.com) and the [vim-plug](https://github.com/junegunn/vim-plug) plugin manager.
 
@@ -20,7 +20,21 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Install the plugin.
 `: PlugInstall`
 
-## Working with vim and elm
+## Install Coc extensions
+These are some nice extensions to have. Make sure you check out the extension documentation to configure to your liking.
+I have found they all just work out of the box well enough.
+
+- coc-explorer
+- coc-tsserver
+- coc-json
+- coc-vimlsp
+- coc-prettier
+
+[coc-vim](https://github.com/neoclide/coc.nvim) extensions can be installed whilst in a vim session.
+
+`: CocInstall coc-prettier coc-json ...`
+
+## Working with nvim and elm
 [coc-vim](https://github.com/neoclide/coc.nvim) needs the [elm-language-server](https://github.com/elm-tooling/elm-language-server) to make your vim development vscode like.
 
 ```
@@ -36,7 +50,7 @@ NOTE: You can just have one global `elm-tooling.json` file but I prefer to have 
 
 `elm-language-server` needs to install elm things into its own internally managed directory.
 
-from the root of your porject or directory where `elm-tooling.json` lives.
+From the root of your project or directory where `elm-tooling.json` lives.
 
 `npx elm-tooling install`
 
@@ -54,16 +68,21 @@ Copy and past everything from `coc-settings.json` into this buffer then `:wq`
 
 All should be working so open up an elm file and you should have a vscode style experience.
 
-## Install Coc extensions
-These are some nice extensions to have. Make sure you check out the extension documentation to configure to your liking.
-I have found they all just work out of the box well enough.
 
-- coc-explorer
-- coc-tsserver
-- coc-json
-- coc-vimlsp
-- coc-prettier
+## Alacritty terminal editor
 
-[coc-vim](https://github.com/neoclide/coc.nvim) extensions can be installed whilst in a vim session.
+Install the library
+`sudo apt install alacritty`
 
-`: CocInstall coc-prettier coc-json ...`
+Check out [Chris@machine](https://www.chrisatmachine.com/Linux/06-alacritty/)'s blog for other isntall instructions.'
+
+Copy the alacritty.yml file to where alacritty is expecting it.
+`cp ~/dot-files/alacritty.yml ~/.config/alacritty/`
+
+Open up the alacritty application and a terminal session should start.
+
+The standard config should work out of the box but you might get some weird font rendering likely because alacritty cant find your font choice.
+The default "Hack" font in the config is one you will need to download and set up.
+
+See the [Source Foundry hack guide](https://github.com/source-foundry/Hack) to set up.
+I used font manager in linux to add the font after I unzipped it. Will likely need a system restart for things to look right.
