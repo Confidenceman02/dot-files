@@ -5,6 +5,13 @@ This guide assumes you are using [nvim](https://www.google.com) and the [vim-plu
 ## Install zsh
 `$ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
 
+## Install zsh-z
+Clone the project into a directory
+`git clone git@github.com:agkozak/zsh-z.git`
+
+source from `.zshrc`
+`source /path/to/zsh-z.plugin.zsh`
+
 ## Install Neovim
 
 __Mac OS__
