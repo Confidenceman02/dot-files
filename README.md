@@ -94,3 +94,6 @@ The default "Hack" font in the config is one you will need to download and set u
 
 See the [Source Foundry hack guide](https://github.com/source-foundry/Hack) to set up.
 I used font manager in linux to add the font after I unzipped it. Will likely need a system restart for things to look right.
+
+__Mac OS__
+Use font book to load the unzipped fonts.
