@@ -2,6 +2,14 @@
 
 This guide assumes you are using [nvim](https://www.google.com) and the [vim-plug](https://github.com/junegunn/vim-plug) plugin manager.
 
+## Install zsh
+`$ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
+
+## Install Neovim
+
+__Mac OS__
+`brew install neovim`
+
 ## Install coc-vim
  
 Source the `coc.vim` file which has a bunch of sensible defaults for the [neoclide/coc-vim](https://github.com/neoclide/coc.nvim) plugin. You can find it in [documentation](https://github.com/neoclide/coc.nvim).
