@@ -2,6 +2,9 @@
 
 This guide assumes you are using [nvim](https://www.google.com) and the [vim-plug](https://github.com/junegunn/vim-plug) plugin manager.
 
+## Install ripgrep 
+`brew install ripgrep`
+
 ## Install zsh
 `$ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
 
