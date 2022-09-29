@@ -1,4 +1,6 @@
 #!/usr/bin/env zsh
+mkdir ~/.config/nvim
+mkdir ~/.config/alacritty
 cp vimrc ~/.vimrc
 # cp coc-settings.json ~/.config/nvim
 # cp coc.vim ~/.vim/plugged/coc.nvim/
