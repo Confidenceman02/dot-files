@@ -4,14 +4,22 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-call plug#begin('~/.vim/plugged')
-source $HOME/.vim/plugged/coc.nvim/coc.vim
+lua require("confidenceman02")
+
+call plug#begin("~/.config/nvim/autoload")
 " --- Auto-Completion
 Plug 'jiangmiao/auto-pairs'
 
 " --- Editing ---
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
+
+" --- auto complete ---
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'L3MON4D3/LuaSnip'
 
 " --- Fuzzy Search ---
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -22,15 +30,8 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ayu-theme/ayu-vim'
 
-" --- Ruby ---
-Plug 'tpope/vim-rails'
-Plug 'vim-ruby/vim-ruby'
-
-"--- elm ---
-Plug 'Zaptic/elm-vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-" --- SniCppets ---
+"--- haskell ---
+Plug 'neovimhaskell/haskell-vim'
 
 " --- Syntax Highlighting ---
 Plug 'MaxMEllon/vim-jsx-pretty'
@@ -42,13 +43,8 @@ Plug 'christoomey/vim-tmux-navigator'
 
 " --- Tools ---
 Plug 'https://github.com/junegunn/vim-plug'
-Plug '907th/vim-auto-save'
-Plug 'rizzatti/dash.vim'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-obsession'
-Plug 'https://github.com/tpope/vim-eunuch'
 if has('nvim')
 else
   Plug 'roxma/nvim-yarp'
@@ -62,11 +58,30 @@ set nocompatible
 filetype plugin indent on
 
 set encoding=utf8
+
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
+
 set autoindent
 set backspace=indent,eol,start
+set colorcolumn=80
 set cursorline
 set cursorcolumn
+
+" TextEdit might fail if hidden is not set.
 set hidden
+
+" Give more space for displaying messages.
+set cmdheight=2
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
 set hlsearch
 set laststatus=2
 set relativenumber
@@ -106,10 +121,6 @@ nnoremap k gk
 " This unsets the 'last search pattern' register by hitting return
 nnoremap <CR> :noh<CR>
 
-" Lets me use space-e to expand emmet abbreviations
-" imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
-nmap <leader>e <C-y>,i
-
 " --- FZF ---
 nnoremap <leader>p :FZF<cr>
 
@@ -122,7 +133,6 @@ let g:airline_powerline_fonts = 1 "enable powerline font
 let g:airline_theme='base16'
 
 " Handy mappings
-let g:coc_disable_startup_warning = 1
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
 " Key bindings for FZF to make file searching betterer
@@ -142,6 +152,10 @@ nnoremap <leader>H :History:<CR>
 nnoremap <leader>r :Rg<Space>
 nnoremap <silent> <Leader>* :Rg <C-R><C-W><CR>
 
+autocmd BufWritePre *.elm lua vim.lsp.buf.formatting_sync()
+autocmd FileType haskell autocmd BufWritePre <buffer> call CocAction('format')
+let g:haskell_indent_disable=1
+
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
@@ -158,14 +172,8 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
-let g:jsx_ext_required = 0
-" let g:javascript_plugin_flow = 1
-
 " Sets the sort-motion plugin to be case-insensitive
 let g:sort_motion_flags = "i"
-
-" enable AutoSave on Vim startup
-let g:auto_save = 1
 
 " --- Inspirational Dotfiles ---
 " https://github.com/kmARC/vim/blob/master/vimrc
