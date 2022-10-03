@@ -2,6 +2,19 @@ local nvim_lsp = require('lspconfig')
 require('nvim-lspconfig.plugin.lspconfig')
 require('nvim-cmp.plugin.cmp')
 
+vim.api.nvim_exec([[
+    augroup fmt
+      autocmd!
+      autocmd BufWritePre *.js undojoin | Neoformat
+      autocmd BufWritePre *.ts undojoin | Neoformat
+      autocmd BufWritePre *.tsx undojoin | Neoformat
+      autocmd BufWritePre *.scss undojoin | Neoformat
+      autocmd BufWritePre *.html undojoin | Neoformat
+
+      autocmd BufWritePre *.elm lua vim.lsp.buf.formatting_sync()
+    augroup END
+]], false)
+
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 capabilities.textDocument.completion.completionItem.documentationFormat = { 'markdown', 'plaintext' }
 capabilities.textDocument.completion.completionItem.snippetSupport = true

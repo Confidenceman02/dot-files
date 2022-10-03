@@ -33,6 +33,9 @@ Plug 'ayu-theme/ayu-vim'
 "--- haskell ---
 Plug 'neovimhaskell/haskell-vim'
 
+"--- Formatting ---
+Plug 'sbdchd/neoformat'
+
 " --- Syntax Highlighting ---
 Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'pangloss/vim-javascript'
