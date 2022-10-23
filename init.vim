@@ -14,6 +14,9 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 
+" --- lsp
+Plug 'neovim/nvim-lspconfig'
+
 " --- auto complete ---
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
