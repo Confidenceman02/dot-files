@@ -14,6 +14,9 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 
+" --- lsp
+Plug 'neovim/nvim-lspconfig'
+
 " --- auto complete ---
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -156,8 +159,6 @@ nnoremap <leader>r :Rg<Space>
 nnoremap <silent> <Leader>* :Rg <C-R><C-W><CR>
 
 autocmd BufWritePre *.elm lua vim.lsp.buf.formatting_sync()
-autocmd FileType haskell autocmd BufWritePre <buffer> call CocAction('format')
-let g:haskell_indent_disable=1
 
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
