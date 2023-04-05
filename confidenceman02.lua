@@ -1,5 +1,5 @@
 local nvim_lsp = require('lspconfig')
-require('nvim-lspconfig.plugin.lspconfig')
+require('lspconfig.plugin.lspconfig')
 require('nvim-cmp.plugin.cmp')
 
 vim.api.nvim_exec([[
@@ -12,10 +12,11 @@ vim.api.nvim_exec([[
       autocmd BufWritePre *.html undojoin | Neoformat
 
       autocmd BufWritePre *.elm lua vim.lsp.buf.formatting_sync()
+      autocmd BufWritePre *.go lua vim.lsp.buf.formatting_sync()
     augroup END
 ]], false)
 
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 capabilities.textDocument.completion.completionItem.documentationFormat = { 'markdown', 'plaintext' }
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.completion.completionItem.preselectSupport = true
@@ -32,7 +33,7 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
     },
 }
 
-local servers = { 'tsserver' }
+local servers = { 'tsserver', 'gopls' }
 
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {
