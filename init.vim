@@ -4,25 +4,30 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-lua require("confidenceman02")
+lua require("plugin.lsp")
+lua require("plugin.gitsigns")
+lua require("plugin.tokyonight")
 
 call plug#begin("~/.config/nvim/autoload")
 " --- Auto-Completion
 Plug 'jiangmiao/auto-pairs'
 
+" --- Git
+Plug 'lewis6991/gitsigns.nvim'
+
+
 " --- Editing ---
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 
-" --- lsp
-Plug 'neovim/nvim-lspconfig'
-
-" --- auto complete ---
+" --- Auto Complete ---
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
+Plug 'neovim/nvim-lspconfig'
 Plug 'L3MON4D3/LuaSnip'
+Plug 'simrat39/rust-tools.nvim'
 
 " --- Fuzzy Search ---
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -31,10 +36,7 @@ Plug 'junegunn/fzf.vim'
 " --- Look & Feel
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'ayu-theme/ayu-vim'
-
-"--- haskell ---
-Plug 'neovimhaskell/haskell-vim'
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 
 "--- Formatting ---
 Plug 'sbdchd/neoformat'
@@ -43,6 +45,7 @@ Plug 'sbdchd/neoformat'
 Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'pangloss/vim-javascript'
 Plug 'leafgarland/typescript-vim'
+Plug 'purescript-contrib/purescript-vim'
 
 " --- TMUX ---
 Plug 'christoomey/vim-tmux-navigator'
@@ -131,10 +134,7 @@ nnoremap <CR> :noh<CR>
 nnoremap <leader>p :FZF<cr>
 
 " --- Look & Feel ---
-colorscheme ayu
-set termguicolors     " enable true colors support
-let ayucolor="dark"   " for dark version of theme
-
+lua vim.cmd[[colorscheme tokyonight]]
 let g:airline_powerline_fonts = 1 "enable powerline font
 let g:airline_theme='base16'
 
@@ -158,7 +158,7 @@ nnoremap <leader>H :History:<CR>
 nnoremap <leader>r :Rg<Space>
 nnoremap <silent> <Leader>* :Rg <C-R><C-W><CR>
 
-autocmd BufWritePre *.elm lua vim.lsp.buf.formatting_sync()
+" autocmd BufWritePre *.elm lua vim.lsp.buf.formatting_sync()
 
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =

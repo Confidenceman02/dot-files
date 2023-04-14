@@ -1,6 +1,28 @@
-local nvim_lsp = require('lspconfig')
-require('lspconfig.plugin.lspconfig')
-require('nvim-cmp.plugin.cmp')
+local nvim_lsp = require('lspconfig.lspconfig')
+local rt = require('rust-tools')
+
+vim.api.nvim_create_augroup('AutoFormatting', {})
+
+-- Elm format
+vim.api.nvim_create_autocmd(
+    "BufWritePre", 
+    { pattern = "*.elm", 
+      group = "AutoFormatting",
+      callback = function()
+        vim.lsp.buf.format({async = true})
+      end
+    }
+)
+-- Go format
+vim.api.nvim_create_autocmd(
+    "BufWritePre", 
+    { pattern = "*.go", 
+      group = 'AutoFormatting',
+      callback = function()
+        vim.lsp.buf.format({async = true})
+      end
+    }
+)
 
 vim.api.nvim_exec([[
     augroup fmt
@@ -10,9 +32,6 @@ vim.api.nvim_exec([[
       autocmd BufWritePre *.tsx undojoin | Neoformat
       autocmd BufWritePre *.scss undojoin | Neoformat
       autocmd BufWritePre *.html undojoin | Neoformat
-
-      autocmd BufWritePre *.elm lua vim.lsp.buf.formatting_sync()
-      autocmd BufWritePre *.go lua vim.lsp.buf.formatting_sync()
     augroup END
 ]], false)
 
@@ -32,6 +51,17 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
         'additionalTextEdits',
     },
 }
+
+rt.setup({
+  server = {
+    on_attach = function(_, bufnr)
+      -- Hover actions
+      vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+      -- Code action groups
+      vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+    end,
+  },
+})
 
 local servers = { 'tsserver', 'gopls' }
 
