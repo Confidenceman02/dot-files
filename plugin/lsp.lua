@@ -59,9 +59,54 @@ rt.setup({
       vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
       -- Code action groups
       vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+      vim.keymap.set("n","gd", vim.lsp.buf.definition,{buffer=0})
+      vim.keymap.set("n","<leader>dj", vim.diagnostic.goto_next,{buffer=0})
+      vim.keymap.set("n","<leader>dk", vim.diagnostic.goto_prev,{buffer=0})
     end,
   },
 })
+
+-- TAILWINDCSS
+nvim_lsp.tailwindcss.setup{
+ filetypes = { "html", "elm" },
+ init_options = {
+   userLanguages = {
+     elm = "html",
+     html = "html"
+   }
+  },
+  settings = {
+    tailwindCSS = {
+      includeLanguages = {
+        elm = "html",
+        html = "html"
+      },
+      classAttributes = { "class", "className", "classList", "ngClass" },
+      experimental = {
+        classRegex = {
+          "\\bclass[\\s(<|]+\"([^\"]*)\"",
+          "\\bclass[\\s(]+\"[^\"]*\"[\\s+]+\"([^\"]*)\"",
+          "\\bclass[\\s<|]+\"[^\"]*\"\\s*\\+{2}\\s*\" ([^\"]*)\"",
+          "\\bclass[\\s<|]+\"[^\"]*\"\\s*\\+{2}\\s*\" [^\"]*\"\\s*\\+{2}\\s*\" ([^\"]*)\"",
+          "\\bclass[\\s<|]+\"[^\"]*\"\\s*\\+{2}\\s*\" [^\"]*\"\\s*\\+{2}\\s*\" [^\"]*\"\\s*\\+{2}\\s*\" ([^\"]*)\"",
+          "\\bclassList[\\s\\[\\(]+\"([^\"]*)\"",
+          "\\bclassList[\\s\\[\\(]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"([^\"]*)\"",
+          "\\bclassList[\\s\\[\\(]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"[^\"]*\",\\s[^\\)]+\\)[\\s\\[\\(,]+\"([^\"]*)\""
+        }
+      },
+      lint = {
+        cssConflict = "warning",
+        invalidApply = "error",
+        invalidConfigPath = "error",
+        invalidScreen = "error",
+        invalidTailwindDirective = "error",
+        invalidVariant = "error",
+        recommendedVariantOrder = "warning"
+      },
+      validate = true
+    }
+  }
+}
 
 local servers = { 'tsserver', 'gopls' }
 
