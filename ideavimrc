@@ -5,4 +5,6 @@ set timeoutlen=1000
 set number
 set scrolloff=8
 set clipboard+=unnamed " Yanks go on clipboard instead.
+set visualbell
+set noerrorbells
 set surround
