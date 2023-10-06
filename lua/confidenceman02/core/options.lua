@@ -1,6 +1,6 @@
 local opt = vim.opt
 
--- line numbers 
+-- line numbers
 opt.relativenumber = true
 opt.number = true
 
@@ -35,5 +35,5 @@ opt.clipboard:append("unnamedplus")
 opt.splitright = true
 opt.splitbelow = true
 
-opt.iskeyword:append("-")
-
+-- turn off swapfile
+opt.swapfile = true
