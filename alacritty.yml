@@ -1,7 +1,7 @@
 colors:
   # Default colors
   primary:
-    background: "#0d1017"
+    background: "#1e2127"
     # background: "#2E3440"
     foreground: "#D8DEE9"
 
@@ -31,7 +31,7 @@ window.opacity: 1.0
 
 font:
   normal:
-    family: Hack
+    family: MesloLGLDZ Nerd Font
     style: Regular
   bold:
     family: Hack
