@@ -93,6 +93,12 @@ return {
 			on_attach = on_attach,
 		})
 
+		-- configure gopls server with plugin
+		lspconfig["gopls"].setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+		})
+
 		-- configure ruff server with plugin
 		lspconfig["ruff_lsp"].setup({
 			capabilities = capabilities,
