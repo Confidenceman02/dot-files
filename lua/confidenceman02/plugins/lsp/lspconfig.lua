@@ -70,6 +70,12 @@ return {
 		end
 
 		-- configure elm server with plugin
+		lspconfig["intelephense"].setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+		})
+
+		-- configure elm server with plugin
 		lspconfig["elmls"].setup({
 			capabilities = capabilities,
 			on_attach = on_attach,
