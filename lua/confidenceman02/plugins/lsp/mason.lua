@@ -24,7 +24,7 @@ return {
 			-- list of servers you want mason to install
 			ensure_installed = {
 				"elmls",
-				"tsserver",
+				"ts_ls",
 				"gopls",
 				"tailwindcss",
 				"lua_ls",

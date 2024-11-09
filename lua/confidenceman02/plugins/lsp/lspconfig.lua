@@ -106,7 +106,7 @@ return {
 		})
 
 		-- configure ruff server with plugin
-		lspconfig["ruff_lsp"].setup({
+		lspconfig["ruff"].setup({
 			capabilities = capabilities,
 			on_attach = on_attach,
 		})
