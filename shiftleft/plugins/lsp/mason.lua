@@ -25,7 +25,7 @@ return {
 			ensure_installed = {
 				"elmls",
 				"ts_ls",
-				"gopls",
+				"ruff",
 				"tailwindcss",
 				"lua_ls",
 				"pyright",
