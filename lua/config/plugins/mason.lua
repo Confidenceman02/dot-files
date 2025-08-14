@@ -1,8 +1,7 @@
 return {
-	"mason-org/mason-lspconfig.nvim",
+	"williamboman/mason.nvim",
 	dependencies = {
-		{ "mason-org/mason.nvim", opt = {} },
-		"neovim/nvim-lspconfig",
+		"williamboman/mason-lspconfig.nvim",
 	},
 	config = function()
 		local mason = require("mason")
@@ -25,9 +24,8 @@ return {
 			-- list of servers you want mason to install
 			ensure_installed = {
 				"elmls",
+				"elm-language-server",
 				"ts_ls",
-				"ruff",
-				"tailwindcss",
 				"lua_ls",
 				"pyright",
 			},

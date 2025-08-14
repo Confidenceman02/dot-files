@@ -1,12 +1,7 @@
 #!/bin/bash
 
-if [ -z "$1" ]; then
-  echo "Usage: $0 <namespace>"
-  exit 1
-fi
 # Variables
-NAMESPACE=$1
-INIT_FILE="${NAMESPACE}-init.lua"
+INIT_FILE="init.lua"
 NVIM_DIR="$HOME/.config/nvim"
 LUA_DIR="$NVIM_DIR/lua"
 
@@ -16,7 +11,7 @@ mkdir -p "$NVIM_DIR"
 # Check if INIT_FILE exists in the current directory
 if [ -f "$INIT_FILE" ]; then
   echo "Found ${INIT_FILE}."
-else 
+else
   echo "Error: ${INIT_FILE} does not exist in the current directory."
   exit 1
 fi
@@ -30,15 +25,6 @@ else
 fi
 
 # Copy the INIT_FILE into the Neovim lua directory as init.lua
-cp "$INIT_FILE" "$NVIM_DIR/init.lua"
+cp "$INIT_FILE" "$NVIM_DIR/$INIT_FILE"
 
-# Copy the NAMESPACE directory into the Neovim lua directory
-if [ -d "$NAMESPACE" ]; then
-  cp -R "$NAMESPACE" "$LUA_DIR"
-else
-  echo "Error: Namespace directory '$NAMESPACE' does not exist in the current directory."
-  exit 1
-fi
-
-echo "Neovim configuration successfully set up for namespace '${NAMESPACE}'."
-
+echo "Neovim configuration successfully set up"

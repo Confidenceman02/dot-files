@@ -46,10 +46,10 @@ return {
 			keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts) -- show diagnostics for line
 
 			opts.desc = "Go to previous diagnostic"
-			keymap.set("n", "[d", vim.diagnostic.goto_prev, opts) -- jump to previous diagnostic in buffer
+			keymap.set("n", "[d", vim.lsp.diagnostic.goto_prev, opts) -- jump to previous diagnostic in buffer
 
 			opts.desc = "Go to next diagnostic"
-			keymap.set("n", "]d", vim.diagnostic.goto_next, opts) -- jump to next diagnostic in buffer
+			keymap.set("n", "]d", vim.lsp.diagnostic.goto_next, opts) -- jump to next diagnostic in buffer
 
 			opts.desc = "Show documentation for what is under cursor"
 			keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
@@ -68,6 +68,12 @@ return {
 			local hl = "DiagnosticSign" .. type
 			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 		end
+
+		-- configure elm server with plugin
+		lspconfig["intelephense"].setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+		})
 
 		-- configure elm server with plugin
 		lspconfig["elmls"].setup({
@@ -93,6 +99,12 @@ return {
 			on_attach = on_attach,
 		})
 
+		-- configure gopls server with plugin
+		lspconfig["gopls"].setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+		})
+
 		-- configure ruff server with plugin
 		lspconfig["ruff"].setup({
 			capabilities = capabilities,
@@ -100,48 +112,6 @@ return {
 		})
 
 		-- configure tailwindcss server
-		lspconfig["tailwindcss"].setup({
-			filetypes = { "html", "elm", "htmldjango" },
-			init_options = {
-				userLanguages = {
-					elm = "html",
-					html = "html",
-					htmldjango = "html",
-				},
-			},
-			settings = {
-				tailwindCSS = {
-					includeLanguages = {
-						elm = "html",
-						html = "html",
-					},
-					classAttributes = { "class", "className", "classList", "ngClass" },
-					experimental = {
-						classRegex = {
-							'\\bclass[\\s(<|]+"([^"]*)"',
-							'\\bclass[\\s(]+"[^"]*"[\\s+]+"([^"]*)"',
-							'\\bclass[\\s<|]+"[^"]*"\\s*\\+{2}\\s*" ([^"]*)"',
-							'\\bclass[\\s<|]+"[^"]*"\\s*\\+{2}\\s*" [^"]*"\\s*\\+{2}\\s*" ([^"]*)"',
-							'\\bclass[\\s<|]+"[^"]*"\\s*\\+{2}\\s*" [^"]*"\\s*\\+{2}\\s*" [^"]*"\\s*\\+{2}\\s*" ([^"]*)"',
-							'\\bclassList[\\s\\[\\(]+"([^"]*)"',
-							'\\bclassList[\\s\\[\\(]+"[^"]*",\\s[^\\)]+\\)[\\s\\[\\(,]+"([^"]*)"',
-							'\\bclassList[\\s\\[\\(]+"[^"]*",\\s[^\\)]+\\)[\\s\\[\\(,]+"[^"]*",\\s[^\\)]+\\)[\\s\\[\\(,]+"([^"]*)"',
-						},
-					},
-					lint = {
-						cssConflict = "warning",
-						invalidApply = "error",
-						invalidConfigPath = "error",
-						invalidScreen = "error",
-						invalidTailwindDirective = "error",
-						invalidVariant = "error",
-						recommendedVariantOrder = "warning",
-					},
-					validate = true,
-				},
-			},
-		})
-
 		-- configure lua server (with special settings)
 		lspconfig["lua_ls"].setup({
 			capabilities = capabilities,
