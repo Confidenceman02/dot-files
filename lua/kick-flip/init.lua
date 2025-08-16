@@ -3,7 +3,7 @@ local M = {}
 
 -- TODO Resolve name from config
 local pipe_dir = "/clipboard_pipe"
-local clipboard_pipe = pipe_dir .. "/clipboard_pipe/nvim_clipboard"
+local clipboard_pipe = pipe_dir .. "/nvim_clipboard"
 
 M.has_start = function()
 	local start_file = pipe_dir .. "/kick-flip.start"
