@@ -16,10 +16,12 @@ M.set_clipboard = function(text)
 		text = vim.fn.join(text, "\n")
 	end
 
-	local file = io.open(clipboard_pipe, "w")
-	if file and M.has_start() then
-		file:write(text)
-		file:close()
+	if M.has_start() then
+		local file = io.open(clipboard_pipe, "w")
+		if file then
+			file:write(text)
+			file:close()
+		end
 	end
 end
 
