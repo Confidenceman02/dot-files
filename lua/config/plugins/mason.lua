@@ -24,7 +24,6 @@ return {
 			-- list of servers you want mason to install
 			ensure_installed = {
 				"elmls",
-				"elm-language-server",
 				"ts_ls",
 				"lua_ls",
 				"pyright",
