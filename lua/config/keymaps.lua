@@ -3,6 +3,7 @@ vim.g.mapleader = " "
 local keymap = vim.keymap -- for conciseness
 
 -- general keymaps
+keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', {noremap = true})
 keymap.set("i", "jj", "<ESC>")
 keymap.set("n", "<CR>", ":nohl<CR>")
 -- delete single char without copting into register
