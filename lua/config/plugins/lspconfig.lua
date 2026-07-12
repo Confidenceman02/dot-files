@@ -1,18 +1,8 @@
 return {
 	"neovim/nvim-lspconfig",
 	event = { "BufReadPre", "BufNewFile" },
-	dependencies = {
-		"hrsh7th/cmp-nvim-lsp",
-	},
 	config = function()
-		-- import lspconfig plugin
-		local lspconfig = require("lspconfig")
-
-		-- import cmp-nvim-lsp plugin
-		local cmp_nvim_lsp = require("cmp_nvim_lsp")
-
 		local keymap = vim.keymap -- for conciseness
-
 		local opts = { noremap = true, silent = true }
 		local on_attach = function(client, bufnr)
 			opts.buffer = bufnr
@@ -45,92 +35,73 @@ return {
 			opts.desc = "Show line diagnostics"
 			keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts) -- show diagnostics for line
 
-			opts.desc = "Go to previous diagnostic"
-			keymap.set("n", "[d", vim.lsp.diagnostic.goto_prev, opts) -- jump to previous diagnostic in buffer
-
-			opts.desc = "Go to next diagnostic"
-			keymap.set("n", "]d", vim.lsp.diagnostic.goto_next, opts) -- jump to next diagnostic in buffer
-
 			opts.desc = "Show documentation for what is under cursor"
 			keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
 
 			opts.desc = "Restart LSP"
 			keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
 		end
-
-		-- used to enable autocompletion (assign to every lsp server config)
-		local capabilities = cmp_nvim_lsp.default_capabilities()
-
-		-- Change the Diagnostic symbols in the sign column (gutter)
-		-- (not in youtube nvim video)
+		local capabilities = vim.lsp.protocol.make_client_capabilities()
+		capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
 		local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
 		for type, icon in pairs(signs) do
 			local hl = "DiagnosticSign" .. type
 			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 		end
 
-		-- configure elm server with plugin
-		lspconfig["intelephense"].setup({
+		vim.lsp.config("elmls", {
 			capabilities = capabilities,
 			on_attach = on_attach,
-		})
 
-		-- configure elm server with plugin
-		lspconfig["elmls"].setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-		})
-
-		-- configure typescript server with plugin
-		lspconfig["ts_ls"].setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-		})
-
-		-- configure python server with plugin
-		lspconfig["pyright"].setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-		})
-
-		-- configure python server with plugin
-		lspconfig["pyright"].setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-		})
-
-		-- configure gopls server with plugin
-		lspconfig["gopls"].setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-		})
-
-		-- configure ruff server with plugin
-		lspconfig["ruff"].setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-		})
-
-		-- configure tailwindcss server
-		-- configure lua server (with special settings)
-		lspconfig["lua_ls"].setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-			settings = { -- custom settings for lua
-				Lua = {
-					-- make the language server recognize "vim" global
-					diagnostics = {
-						globals = { "vim" },
-					},
-					workspace = {
-						-- make language server aware of runtime files
-						library = {
-							[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-							[vim.fn.stdpath("config") .. "/lua"] = true,
-						},
-					},
+			settings = {
+				elmLS = {
+					elmPath = "/usr/local/bin/elm",
 				},
 			},
 		})
+
+		vim.lsp.config("ruff", {
+			capabilities = capabilities,
+			on_attach = on_attach,
+		})
+
+		vim.lsp.config("pyright", {
+			capabilities = capabilities,
+			on_attach = on_attach,
+		})
+
+		vim.lsp.config("ts_ls", {
+			capabilities = capabilities,
+			on_attach = on_attach,
+			root_dir = function(bufnr, on_dir)
+				local filename = vim.api.nvim_buf_get_name(bufnr)
+				if filename == "" then
+					return
+				end
+
+				-- Resolve symlinks to bypass virtual pnpm store pathways cleanly
+				local real_path = vim.fs.normalize(vim.loop.fs_realpath(filename) or filename)
+
+				-- Search upward from the real file location for monorepo anchors
+				local root = vim.fs.find(
+					{ "pnpm-workspace.yaml", "pnpm-lock.yaml", "package.json" },
+					{ path = real_path, upward = true }
+				)[1]
+
+				-- Compute the final workspace boundary
+				local final_root = root and vim.fs.dirname(root) or "/app"
+
+				-- Trigger the native 0.11 async callback engine
+				on_dir(final_root)
+			end,
+			init_options = {
+				tsserver = {
+					path = "/app/node_modules/.pnpm/typescript@7.0.2/node_modules/typescript/lib",
+				},
+			},
+		})
+
+		vim.lsp.enable("ts_ls")
+		vim.lsp.enable("elmls")
 	end,
 }
