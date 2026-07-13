@@ -17,3 +17,4 @@ keymap.set("n", "<leader>to", ":tabnew<CR>") -- open new tab
 keymap.set("n", "<leader>tx", ":tabclose<CR>") -- cose current tab
 keymap.set("n", "<leader>tn", ":tabn<CR>") -- go to new tab
 keymap.set("n", "<leader>tp", ":tabp<CR>") -- go to previous tab
+keymap.set('t', '<Esc><Esc>', [[<C-\><C-n>]], { desc = 'Exit terminal mode' }) -- Change to normal mode in terminal
