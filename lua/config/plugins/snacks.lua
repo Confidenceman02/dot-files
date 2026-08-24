@@ -4,5 +4,16 @@ return {
 		scroll = {
 			enabled = false, -- Disable scrolling animations
 		},
+		picker = {
+        	sources = {
+            	explorer = {
+                	layout = {
+                    	layout = {
+                        	position = "right",
+                    	},
+                	},
+            	},
+        	},
+    	},
 	},
 }
