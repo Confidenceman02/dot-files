@@ -26,7 +26,7 @@ return {
 				"elmls",
 				"ts_ls",
 				"lua_ls",
-				"pyright",
+				"ty",
 			},
 			-- auto-install configured servers (with lspconfig)
 			automatic_installation = true,
