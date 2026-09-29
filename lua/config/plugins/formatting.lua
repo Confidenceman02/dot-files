@@ -15,7 +15,7 @@ return {
 				markdown = { "prettier" },
 				graphql = { "prettier" },
 				lua = { "stylua" },
-				python = { "isort", "black" },
+				python = { "ruff_fix", "ruff_organize_imports" , "ruff_format" },
 			},
 		})
 	end,
